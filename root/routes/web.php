@@ -14,10 +14,12 @@ use App\Models\Work;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//ユーザー
 //ホーム
 Route::view('/', 'index')->name('index');
-//勤怠
+
+/**
+ * 勤怠登録
+ */
 //勤怠一覧
 Route::get('/works', [WorkController::class, 'index'])->name('works.index');
 Route::prefix('work')->name('works')->group(function(){
