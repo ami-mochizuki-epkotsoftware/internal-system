@@ -1,5 +1,7 @@
 @extends('base')
 
+@section('title', '勤怠登録')
+@section('subtitle', '新規登録')
 @section('css')
 
 @endsection

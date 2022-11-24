@@ -1,19 +1,13 @@
 @extends('base')
 
+@section('title', '勤怠登録')
+@section('subtitle', '一覧')
 @section('css')
 
 @endsection
 
 @section('content')
-@if ($errors->any())
-<div class="alert alert-danger mt-3">
-  <ul>
-    @foreach ($errors->all() as $error)
-    <li>{{ $error }}</li>
-    @endforeach
-  </ul>
-</div>
-@endif
+
 @if($yearMonth === $now)
 <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-bottom: 5px;">
   <a href="{{ route('works.register') }}" class="btn btn-outline-warning me-md-2" type="button">登録</a>
@@ -22,12 +16,17 @@
 <div class="container">
   <div class="d-grid gap-2 d-md-flex justify-content-md-start" style="margin-bottom: 5px;">
     <form action="{{ route('works.index') }}" method="GET">
-      <input type="month" name="yearMonth" value="{{$yearMonth}}">
-      <button class="btn btn-secondary" type="submit">表示</button>
-      @if($yearMonth != $now)
-      <button class="btn btn-info" name="export" type="submit">エクスポート</button>
-      @endif
+      <input type="month" id="inputYearMonth" name="yearMonth" value="{{ $yearMonth }}" max="{{ $now }}">
+      <button class="btn btn-secondary" id="buttonDisplay" type="submit">表示</button>
     </form>
+  </div>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-start" style="margin-bottom: 5px;">
+    <label for="inputYearMonth" style="font-size: 20px;">
+      <span id="year"></span>
+      年
+      <span id="month"></span>
+      月
+    </label>
   </div>
 </div>
 <table class="table table-bordered">
@@ -43,19 +42,18 @@
     </tr>
   </thead>
   <tbody>
-    @foreach($days as $day) <tr>
+    @foreach($days as $day)
+    <tr>
       <th>{{ $day }}</th>
       <th>{{ $weeks[$day-1] }}</th>
       <td>{{ $works[$day-1]['work_start_time']  }}</td>
       <td>{{ $works[$day-1]['work_end_time'] }}</td>
       <td>{{ $works[$day-1]['break_time'] }}</td>
-      <td>{{ $workedTimes[$day-1] }}</td>
       @if($works[$day-1]['work_start_time'] != '')
-      <td><a href="{{ route('works.show', [
-        'work' => $ids[$day-1],
-        'yearMonth' => $yearMonth,
-        ]) }}" class="btn btn-primary">詳細</a></td>
+      <td>{{ $workedTimes[$day-1] }}</td>
+      <td><a href="{{ route('works.show', ['work' => $ids[$day-1], 'yearMonth' => $yearMonth,]) }}" class="btn btn-primary">詳細</a></td>
       @else
+      <td></td>
       <td></td>
       @endif
     </tr>
@@ -68,6 +66,15 @@
     <th>{{ $workedTimesSum }}</th>
   </tbody>
 </table>
+@if($yearMonth != $now)
+<div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-bottom: 5px;">
+  <form action="{{ route('works.export') }}" method="POST">
+    @csrf
+    <input type="hidden" class="form-control" name="yearMonth" value="{{ $yearMonth }}">
+    <button class="btn btn-info" name="export" type="submit">エクスポート</button>
+  </form>
+</div>
+@endif
 @endsection
 
 @section('script')

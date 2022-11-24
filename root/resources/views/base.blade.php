@@ -18,11 +18,6 @@
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <ul class="navbar-nav px-3">
-    <li class="nav-item text-nowrap">
-      <a class="nav-link" href="#" data-toggle="tooltip" title="ログアウト">ログアウト</a>
-    </li>
-  </ul>
 </nav>
 
 <!-- Sidebar & Content -->
@@ -35,10 +30,7 @@
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">@yield('title')</h1>
       </div>
-      <x-alert type="info"/>
-      <x-alert type="success"/>
-      <x-alert type="warning"/>
-      <x-alert type="danger"/>
+      <x-alert />
       <h2>@yield('subtitle')</h2>
       <div>
 <!-- Content -->
@@ -61,6 +53,7 @@
         $('[data-toggle="tooltip"]').tooltip();
       });
     </script>
+    <script src="{{ asset('js/script.js') }}"></script>
     @yield('script')
     <!-- Scripts end -->
   </body>

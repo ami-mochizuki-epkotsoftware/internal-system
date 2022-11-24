@@ -20,8 +20,7 @@ class WorkFactory extends Factory
     {
         return [
             'work_content' => sprintf('業務%02d', $this->i),
-            'comment' => null,
-            'date' => sprintf('2022-09-%02d', $this->i++),
+            'date' => sprintf('2022-10-%02d', $this->i++),
             'work_start_time' => '09:30:00',
             'work_end_time' => '18:30:00',
             'break_time' => '01:00:00',
