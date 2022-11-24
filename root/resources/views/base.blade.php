@@ -53,6 +53,7 @@
         $('[data-toggle="tooltip"]').tooltip();
       });
     </script>
+    <script src="{{ asset('js/script.js') }}"></script>
     @yield('script')
     <!-- Scripts end -->
   </body>

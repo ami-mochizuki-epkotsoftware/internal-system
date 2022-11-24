@@ -22,8 +22,9 @@ Route::view('/', 'index')->name('index');
  */
 //勤怠一覧
 Route::get('/works', [WorkController::class, 'index'])->name('works.index');
+Route::post('/works', [WorkController::class, 'export'])->name('works.export');
 Route::prefix('work')->name('works')->group(function(){
-    //勤怠提出
+    //勤怠新規登録
     Route::get('register', [WorkController::class, 'register'])->name('.register');
     Route::post('store', [WorkController::class, 'store'])->name('.store');
     //勤怠詳細
